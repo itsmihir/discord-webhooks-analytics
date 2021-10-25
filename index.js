@@ -6,7 +6,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://www.mihirkhambhati.tech"],
+    origins: ["http://localhost:3000", "https://www.mihirkhambhati.tech"],
     optionsSuccessStatus: 200,
 };
 
