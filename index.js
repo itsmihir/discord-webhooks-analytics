@@ -17,7 +17,7 @@ app.use(express.json());
 
 const { Webhook, MessageBuilder } = require("discord-webhook-node");
 
-app.post("/portfolio", async (req, res) => {
+app.get("/portfolio", async (req, res) => {
     let ip = req.ip;
     if (ip.substr(0, 7) == "::ffff:") {
         ip = ip.substr(7);
@@ -42,6 +42,8 @@ app.post("/portfolio", async (req, res) => {
         .setTimestamp();
 
     hook.send(embed);
+
+    res.send(ip);
 });
 
 const port = process.env.PORT || 8080;
