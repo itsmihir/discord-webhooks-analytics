@@ -9,7 +9,7 @@ const corsOptions = {
     origins: [
         "https://www.mihirkhambhati.tech",
         "https://tender-torvalds-a1ae7b.netlify.app",
-        "https://localhost:3000",
+        // "https://localhost:3000",
     ],
     optionsSuccessStatus: 200,
 };
