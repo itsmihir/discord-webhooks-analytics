@@ -7,7 +7,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const corsOptions = {
-    // origin: "http://localhost:3000",
+    // origins: ["http://localhost:3000", "http://ffe9-157-32-102-119.ngrok.io"],
     origin: "https://www.mihirkhambhati.tech",
     optionsSuccessStatus: 200,
 };
@@ -18,9 +18,11 @@ app.use(express.json());
 const { Webhook, MessageBuilder } = require("discord-webhook-node");
 
 app.post("/portfolio", async (req, res) => {
-    const ip = req.ip;
+    let ip = req.ip;
+    if (ip.substr(0, 7) == "::ffff:") {
+        ip = ip.substr(7);
+    }
     const details = await axios.get(`http://ipwhois.app/json/${ip}`);
-
     const currentTime = Date();
     const data = {
         country: details.data.country,
