@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const geoip = require("geoip-lite");
 const cors = require("cors");
 const axios = require("axios");
 
