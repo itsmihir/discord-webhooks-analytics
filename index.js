@@ -7,12 +7,10 @@ const axios = require("axios");
 require("dotenv").config();
 
 const corsOptions = {
-    origin: "*",
-    // origins: [
-    //     "https://www.mihirkhambhati.tech",
-    //     "https://tender-torvalds-a1ae7b.netlify.app",
-    // ],
-    credentials: true, //access-control-allow-credentials:true
+    origins: [
+        "https://www.mihirkhambhati.tech",
+        "https://tender-torvalds-a1ae7b.netlify.app",
+    ],
     optionsSuccessStatus: 200,
 };
 
