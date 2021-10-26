@@ -8,7 +8,10 @@ require("dotenv").config();
 
 const corsOptions = {
     // origins: ["http://localhost:3000", "http://ffe9-157-32-102-119.ngrok.io"],
-    origin: "https://www.mihirkhambhati.tech",
+    origins: [
+        "https://www.mihirkhambhati.tech",
+        "https://tender-torvalds-a1ae7b.netlify.app",
+    ],
     optionsSuccessStatus: 200,
 };
 
