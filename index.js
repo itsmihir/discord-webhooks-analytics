@@ -12,6 +12,7 @@ const corsOptions = {
         "https://www.mihirkhambhati.tech",
         "https://tender-torvalds-a1ae7b.netlify.app",
     ],
+    credentials: true, //access-control-allow-credentials:true
     optionsSuccessStatus: 200,
 };
 
