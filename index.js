@@ -6,12 +6,12 @@ const axios = require("axios");
 require("dotenv").config();
 
 const corsOptions = {
-    origins: [
+    origin: [
         "https://www.mihirkhambhati.tech",
         "https://tender-torvalds-a1ae7b.netlify.app",
-        // "https://localhost:3000",
     ],
-    optionsSuccessStatus: 200,
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
