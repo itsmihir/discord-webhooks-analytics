@@ -19,10 +19,7 @@ app.use(express.json());
 const { Webhook, MessageBuilder } = require("discord-webhook-node");
 
 app.post("/portfolio", async (req, res) => {
-    let ip = req.ip;
-    if (ip.substr(0, 7) == "::ffff:") {
-        ip = ip.substr(7);
-    }
+    const ip = res.body.ip;
     console.log(ip);
     const details = await axios.get(`http://ipwhois.app/json/${ip}`);
     const currentTime = Date();
