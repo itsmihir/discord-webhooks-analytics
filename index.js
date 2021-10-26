@@ -23,9 +23,9 @@ const { Webhook, MessageBuilder } = require("discord-webhook-node");
 
 app.get("/portfolio", async (req, res) => {
     let ip = req.ip;
-    if (ip.substr(0, 7) == "::ffff:") {
-        ip = ip.substr(7);
-    }
+    // if (ip.substr(0, 7) == "::ffff:") {
+    //     ip = ip.substr(7);
+    // }
 
     res.send({ ip: ip });
     const details = await axios.get(`http://ipwhois.app/json/${ip}`);
