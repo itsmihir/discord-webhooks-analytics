@@ -44,6 +44,7 @@ app.post("/portfolio", async (req, res) => {
         .setTimestamp();
 
     hook.send(embed);
+    res.sendStatus(200);
 });
 
 const port = process.env.PORT || 8080;
