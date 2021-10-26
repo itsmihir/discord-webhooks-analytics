@@ -24,6 +24,7 @@ app.get("/portfolio", async (req, res) => {
         ip = ip.substr(7);
     }
     console.error(ip);
+    console.log(ip);
     const details = await axios.get(`http://ipwhois.app/json/${ip}`);
     const currentTime = Date();
     const data = {
