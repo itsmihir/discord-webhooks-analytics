@@ -2,11 +2,13 @@ const express = require("express");
 const app = express();
 const geoip = require("geoip-lite");
 const cors = require("cors");
+const axios = require("axios");
 
 require("dotenv").config();
 
 const corsOptions = {
-    origins: ["http://localhost:3000", "https://www.mihirkhambhati.tech"],
+    // origin: "http://localhost:3000",
+    origin: "https://www.mihirkhambhati.tech",
     optionsSuccessStatus: 200,
 };
 
@@ -15,34 +17,26 @@ app.use(express.json());
 
 const { Webhook, MessageBuilder } = require("discord-webhook-node");
 
-app.post("/portfolio", (req, res) => {
-    const geo = geoip.lookup(req.ip);
-    const startTime = new Date(String(req.body.StartTime));
-    const endTime = new Date(String(req.body.EndTime));
-    const difference = endTime.getTime() - startTime.getTime(); // This will give difference in milliseconds
+app.post("/portfolio", async (req, res) => {
+    const ip = req.ip;
+    const details = await axios.get(`http://ipwhois.app/json/${ip}`);
 
+    const currentTime = Date();
     const data = {
-        Browser: req.headers["user-agent"],
-        Language: req.headers["accept-language"],
-        Country: geo ? geo.country : "Unknown",
-        Region: geo ? geo.region : "Unknown",
-        StartTime: startTime.toLocaleString(),
-        EndTime: endTime.toLocaleString(),
-        TimeSpendInMinutes: Math.round(difference / 60000),
-        TimeSpendInSec: Math.round(difference / 1000),
+        country: details.data.country,
+        region: details.data.region,
+        city: details.data.city,
+        location: `https://www.google.com/maps/search/?api=1&query=${details.data.latitude},${details.data.longitude}`,
+        startTime: currentTime,
     };
-
     const hook = new Webhook(process.env.WEBHOOK_URL);
     const embed = new MessageBuilder()
         .setTitle("New User")
-        .setDescription(`Country : ${data.Country} | Region : ${data.Region}`)
-        .addField("Time Spend in Minutes", data.TimeSpendInMinutes, true)
-        .addField("Time Spend in Seconds", data.TimeSpendInSec, true)
-        .addField("Start Time", data.StartTime)
-        .addField("End Time", data.EndTime)
-        .addField("Browser", data.Browser, true)
-        .addField("Language", data.Language, true)
-        .setColor("#00b0f4")
+        .setDescription(
+            `Country : ${data.country} | Region : ${data.region} | City : ${data.city}`
+        )
+        .addField("Start Time", data.startTime)
+        .addField("Location", data.location)
         .setTimestamp();
 
     hook.send(embed);
