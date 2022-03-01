@@ -30,17 +30,43 @@ app.post("/portfolio", async (req, res) => {
         city: details.data.city,
         location: `https://www.google.com/maps/search/?api=1&query=${details.data.latitude},${details.data.longitude}`,
         startTime: currentTime,
+        userId: req.body.userId,
         organisation: details.data.org,
     };
     const hook = new Webhook(process.env.WEBHOOK_URL);
     const embed = new MessageBuilder()
         .setTitle("New User")
         .setDescription(
-            `Country : ${data.country} | Region : ${data.region} | City : ${data.city}`
+            `Country : ${data.country} | Region : ${data.region} | City : ${data.city} | User Id: ${data.userId}`
         )
         .addField("Start Time", data.startTime)
         .addField("Location", data.location)
         .addField("ISP", data.organisation)
+        .setTimestamp();
+
+    hook.send(embed);
+    res.sendStatus(200);
+});
+
+app.post("/portfolio/action", async (req, res) => {
+    const data = req.body;
+    console.log(data);
+    const currentTime = Date();
+    const data = {
+        startTime: currentTime,
+        userId: req.body.userId,
+        link: req.body.link,
+        event: req.body.event
+    };
+    const hook = new Webhook(process.env.WEBHOOK_URL);
+    const embed = new MessageBuilder()
+        .setTitle("Action")
+        .setDescription(
+            `User Id: ${data.userId}`
+        )
+        .addField("Event", data.event)
+        .addField("URL", data.link)
+        .addField("Start Time", data.startTime)
         .setTimestamp();
 
     hook.send(embed);
