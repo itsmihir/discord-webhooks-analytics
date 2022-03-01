@@ -6,10 +6,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const corsOptions = {
-    origin: [
-        "https://mihirkhambhati.tech",
-        "https://tender-torvalds-a1ae7b.netlify.app",
-    ],
+    origin: ["https://mihirkhambhati.tech"],
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 };
@@ -49,21 +46,17 @@ app.post("/portfolio", async (req, res) => {
 });
 
 app.post("/portfolio/action", async (req, res) => {
-    const data = req.body;
-    console.log(data);
     const currentTime = Date();
     const data = {
         startTime: currentTime,
         userId: req.body.userId,
         link: req.body.link,
-        event: req.body.event
+        event: req.body.event,
     };
     const hook = new Webhook(process.env.WEBHOOK_URL);
     const embed = new MessageBuilder()
         .setTitle("Action")
-        .setDescription(
-            `User Id: ${data.userId}`
-        )
+        .setDescription(`User Id: ${data.userId}`)
         .addField("Event", data.event)
         .addField("URL", data.link)
         .addField("Start Time", data.startTime)
