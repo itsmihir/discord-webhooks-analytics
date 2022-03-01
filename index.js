@@ -49,8 +49,7 @@ app.post("/portfolio", async (req, res) => {
 });
 
 app.post("/portfolio/action", async (req, res) => {
-    const data = req.body;
-    console.log(data);
+
     const currentTime = Date();
     const data = {
         startTime: currentTime,
