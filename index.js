@@ -61,9 +61,8 @@ app.post("/portfolio/action", async (req, res) => {
     const embed = new MessageBuilder()
         .setTitle("Action")
         .setDescription(
-            `User Id: ${data.userId}`
+            `User Id: ${data.userId} | Event: ${data.event}`
         )
-        .addField("Event", data.event)
         .addField("URL", data.link)
         .addField("Start Time", data.startTime)
         .setTimestamp();
