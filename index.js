@@ -9,6 +9,7 @@ const corsOptions = {
     origin: [
         "https://mihirkhambhati.tech",
         "https://tender-torvalds-a1ae7b.netlify.app",
+        "https://itsmihir.github.io/"
     ],
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
