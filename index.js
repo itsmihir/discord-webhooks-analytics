@@ -6,7 +6,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const corsOptions = {
-    origin: ["https://mihirkhambhati.tech"],
+    origin: ["https://mihirkhambhati.tech","https://itsmihir.github.io"],
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 };
@@ -56,8 +56,7 @@ app.post("/portfolio/action", async (req, res) => {
     const hook = new Webhook(process.env.WEBHOOK_URL);
     const embed = new MessageBuilder()
         .setTitle("Action")
-        .setDescription(`User Id: ${data.userId}`)
-        .addField("Event", data.event)
+        .setDescription(`User Id: ${data.userId} | Event: ${data.event}`)
         .addField("URL", data.link)
         .addField("Start Time", data.startTime)
         .setTimestamp();
