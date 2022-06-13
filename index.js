@@ -6,7 +6,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const corsOptions = {
-    origin: ["https://mihirkhambhati.tech","https://itsmihir.github.io"],
+    origin: ["https://itsmihir.github.io/"],
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 };
@@ -59,6 +59,35 @@ app.post("/portfolio/action", async (req, res) => {
         .setDescription(`User Id: ${data.userId} | Event: ${data.event}`)
         .addField("URL", data.link)
         .addField("Start Time", data.startTime)
+        .setTimestamp();
+
+    hook.send(embed);
+    res.sendStatus(200);
+});
+
+app.post("/resume", async (req, res) => {
+    const ip = req.body.ip;
+    console.log(ip);
+    const details = await axios.get(`https://ipapi.co/${ip}/json`);
+    const currentTime = Date();
+    const data = {
+        country: details.data.country_name,
+        region: details.data.region,
+        city: details.data.city,
+        location: `https://www.google.com/maps/search/?api=1&query=${details.data.latitude},${details.data.longitude}`,
+        startTime: currentTime,
+        userId: req.body.userId,
+        organisation: details.data.org,
+    };
+    const hook = new Webhook(process.env.WEBHOOK_URL);
+    const embed = new MessageBuilder()
+        .setTitle("Resume Link")
+        .setDescription(
+            `Country : ${data.country} | Region : ${data.region} | City : ${data.city} | User Id: ${data.userId}`
+        )
+        .addField("Start Time", data.startTime)
+        .addField("Location", data.location)
+        .addField("ISP", data.organisation)
         .setTimestamp();
 
     hook.send(embed);
