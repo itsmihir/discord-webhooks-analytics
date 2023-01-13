@@ -8,7 +8,6 @@ require("dotenv").config();
 const corsOptions = {
     origin: [
         "https://itsmihir.github.io",
-        "https://tender-torvalds-a1ae7b.netlify.app",
     ],
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
